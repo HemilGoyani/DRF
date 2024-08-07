@@ -151,7 +151,7 @@ class OrderDetailView(GenericAPIView):
                         body=text_content,
                         from_email=settings.EMAIL_HOST_USER,
                         to=[
-                            "met@taglineinfotech.com",  # user_email,
+                            "test@yopmail.com",  # user_email,
                         ],
                     )
                     emailMessage.attach_alternative(html_content, "text/html")
@@ -416,7 +416,7 @@ class CreateOrderView(GenericAPIView):
                 body=text_content,
                 from_email=settings.EMAIL_HOST_USER,
                 to=[
-                    "met@taglineinfotech.com",  # user_email,
+                    "test@yopmail.com",  # user_email,
                 ],
             )
             emailMessage.attach_alternative(html_content, "text/html")
