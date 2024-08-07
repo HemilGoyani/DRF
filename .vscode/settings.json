@@ -1,0 +1,32 @@
+{
+    "editor.tabSize": 4,
+    "python.formatting.provider": "black",
+    "python.sortImports.args": [
+        "--sl"
+    ],
+    "[python]": {
+        "editor.rulers": [
+            88
+        ],
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": true,
+            "source.sortMembers": true
+        }
+    },
+    "[html]": {
+        "editor.tabSize": 2
+    },
+    "[css]": {
+        "editor.tabSize": 2
+    },
+    "[javascript]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+}

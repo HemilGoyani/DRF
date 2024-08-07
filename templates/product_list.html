@@ -1,0 +1,180 @@
+{% load tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>backend products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Kalam:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @page {
+          size: A4;
+          margin: 30px -30px 30px -30px;
+          padding: 0;
+        }
+
+      @media screen,
+      print {
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+      body {
+          font-family: 'poppins';
+          box-sizing: border-box;
+          box-sizing: border-box;
+      }
+
+      img {
+          max-width: 100%;
+      }
+
+      tfoot {
+          page-break-after: always;
+      }
+
+      table {
+          width: 100%;
+      }
+      .table-body tr:nth-child(even){
+      background-color: #ECF5FF;
+      }
+
+      .not-found-title{
+      font-size: 16px;
+      text-align: center;
+      margin: 20px 10px;
+      }
+
+      .table-body tr {
+      page-break-inside: avoid;
+      }}
+    </style>
+  </head>
+
+<body style="margin: 0;padding:0;">
+  <table class="table-main" style="text-transform: capitalize; width: 100%; border-spacing: 0;padding: 0;margin: 0;">
+    <thead style="padding-top: 20px;">
+      <tr>
+        <th style="padding: 0 20px;">
+          <div style="background: linear-gradient(90deg, #ECF5FF 0%, rgba(236, 245, 255, 0) 100%);color: #2d8cff;padding: 10px 20px;border-left: 5px solid #2d8cff;font-weight: 500;font-size: 20px;margin-bottom: 20px;display: block;">
+            <div style="display: flex;align-items: center;">
+              <div class="left-side" style="text-align: left;width: 50%;vertical-align: middle;">
+                <h2 style="font-size: 30px;">{{business_name}}</h2>
+              </div>
+              <div class="right-side" style="text-align: right;width: 50%;vertical-align: middle;">
+                <label style="display:block;padding-bottom: 5px;font-size: 18px;text-align: right;;"> Name: {{owner_name}} </label>
+                <label style="display:block;padding-bottom: 5px;font-size: 18px;text-align: right;"> Phone no: {{phone_number}} </label>
+              </div>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if queryset %}
+      {% for instance in queryset %}
+      <tr>
+        <td style="padding: 0 20px;">
+          <table class="inner_table" style="width: 100%;padding:20px 0 ;border-bottom: 1px solid #e9e9e9;border-spacing: 0;page-break-before: auto;page-break-inside: avoid;">
+            <tbody>
+              <tr>
+                <td rowspan="4" style="width: 5%; text-align: center;padding: 0 15px;vertical-align: middle;">
+                  <h3>{{forloop.counter}}</h3>
+                </td>
+                {% with images=instance.images.all %}
+                {% if images %}
+                {% for image in images %}
+                {% if forloop.counter < 7 %}
+                {% if image.image %}
+                <td style="width: 15.83%;">
+                  <div class="card" style="padding: 0 5px;">
+                    <div class="image_block" style="width: 130px;height: 130px;text-align: center;border: 1px solid #d9d9d9;margin-bottom: 10px;">
+                      <img src="{{server_url}}/media/{{ image.image }}" alt="product" style="object-fit: contain;width: 100%;height: 100%;">
+                    </div>
+                  </div>
+                </td>
+                {% else %}
+                <td style="width: 15.83%;">
+                  <div class="card" style="padding: 0 5px;">
+                    <div class="image_block" style="width: 130px;height: 130px;text-align: center;margin-bottom: 10px;border: 1px solid #ffffff;">
+                    </div>
+                  </div>
+                </td>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% with len=images|length|add:"-6" %}
+                {% for i in len|times %} 
+                <td style="width: 15.83%;">
+                  <div class="card" style="padding: 0 5px;">
+                    <div class="image_block" style="width: 130px;height: 130px;text-align: center;margin-bottom: 10px;border: 1px solid #ffffff;">
+                    </div>
+                  </div>
+                </td>
+                {% endfor %}
+                {% endwith %}
+                {% endif %}
+                {% endwith %}
+              </tr>
+              <tr>
+                <!-- <td colspan="1" style="width: 5%;padding: 10px 15px;"></td> -->
+                <td colspan="1" style="width: 15.83%;vertical-align: top;">
+                  <h4 style="font-family: 'Times new roman bold';font-size: 16px;padding: 0 5px;">Product Name</h4>
+                </td>
+                <td colspan="5" style="width: 79.17%;vertical-align: top;">
+                  <p style="font-family: 'Times new roman';font-size: 16px;">: {{instance.name}}</p>
+                </td>
+              </tr>
+              {% if instance.lmitate %}
+              <tr>
+                <!-- <td colspan="1" style="width: 5%;padding: 10px 15px;"></td> -->
+                <td colspan="1" style="width: 15.83%;vertical-align: top;">
+                  <h4 style="font-family: 'Times new roman bold';font-size: 16px;padding: 0 5px;">Categories</h4>
+                </td>
+                <td colspan="5" style="width: 79.17%;vertical-align: top;">
+                  {% for lmitate in instance.lmitate %}
+                  <p style="font-family: 'Times new roman';font-size: 16px;display:block;">: {{lmitate.lable}} : {{lmitate.value}}
+                  </p>
+                  {% endfor %}
+                </td>
+              </tr>
+              {% endif %} 
+              <tr>
+                <!-- <td colspan="1" style="width: 5%;padding: 10px 15px;"></td> -->
+                <td colspan="1" style="width: 15.83%;vertical-align: top;">
+                  <h4 style="font-family: 'Times new roman bold';font-size: 16px;padding: 0 5px;">Price</h4>
+                </td>
+                <td colspan="5" style="width: 79.17%;vertical-align: top;">
+                  <p style="font-family: 'Times new roman';font-size: 16px;display: inline-flex;align-items: center;">: &nbsp;
+                    <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_108_75)">
+                      <path d="M4.66621 12.9969L0.397736 7.11291L0.422392 5.94681C2.42569 6.09893 3.98314 5.8653 4.34548 3.77763L0.0769636 3.75064L0.767821 2.47602L4.17277 2.53002C3.65397 1.34211 2.22715 1.1957 0.00292969 1.28292L0.767821 0.0353125L7.99732 0.023407L7.28177 1.2555H5.28323C5.64851 1.68031 5.91584 2.16912 5.92475 2.58416L7.99732 2.55704L7.28177 3.77724L5.90005 3.80436C5.68435 5.62453 4.16645 6.70222 2.24836 6.94982L6.54544 12.9953L4.66636 12.9964L4.66621 12.9969Z" fill="black" stroke="black" stroke-width="0.099084"/>
+                      </g>
+                      <defs>
+                      <clipPath id="clip0_108_75">
+                      <rect width="8" height="13" fill="white"/>
+                      </clipPath>
+                      </defs>
+                    </svg>&nbsp; <span>{{instance.price}} / {{instance.unit}}</span></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
+</body>
+<tfoot></tfoot>
+
+</html>
